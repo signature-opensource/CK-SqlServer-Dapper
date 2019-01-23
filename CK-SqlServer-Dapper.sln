@@ -3,7 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.SqlServer.Dapper", "CK.SqlServer.Dapper\CK.SqlServer.Dapper.csproj", "{09376B5E-D726-46AB-9840-70BC223AAC08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CK.SqlServer.Dapper", "CK.SqlServer.Dapper\CK.SqlServer.Dapper.csproj", "{09376B5E-D726-46AB-9840-70BC223AAC08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C4D2EF0F-FA75-4911-8BD4-2237AEED3192}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DA39DE3D-98C0-4651-9778-326AF82AF298}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Appveyor.yml = Appveyor.yml
+		NuGet.config = NuGet.config
+		RepositoryInfo.xml = RepositoryInfo.xml
+		Common\Shared.props = Common\Shared.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.SqlServer.Dapper.Tests", "Tests\CK.SqlServer.Dapper.Tests\CK.SqlServer.Dapper.Tests.csproj", "{AFE5AFEA-3EE1-42C9-BA78-0A5362477958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +28,16 @@ Global
 		{09376B5E-D726-46AB-9840-70BC223AAC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09376B5E-D726-46AB-9840-70BC223AAC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09376B5E-D726-46AB-9840-70BC223AAC08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE5AFEA-3EE1-42C9-BA78-0A5362477958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE5AFEA-3EE1-42C9-BA78-0A5362477958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE5AFEA-3EE1-42C9-BA78-0A5362477958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE5AFEA-3EE1-42C9-BA78-0A5362477958}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AFE5AFEA-3EE1-42C9-BA78-0A5362477958} = {C4D2EF0F-FA75-4911-8BD4-2237AEED3192}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F15143E-E6FA-4EB4-A3F8-D01AFBB294EA}

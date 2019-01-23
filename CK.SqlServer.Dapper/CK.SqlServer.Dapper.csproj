@@ -1,7 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Common\Shared.props" />
+  
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <Description>Thin wrapper enabling Dapper on ISqlConnectionController that transparently handles potential transactions.</Description>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="CK.SqlServer" Version="0.2.3--0001-develop" />
+    <PackageReference Include="Dapper.StrongName" Version="1.50.5" />
+  </ItemGroup>
 
 </Project>
