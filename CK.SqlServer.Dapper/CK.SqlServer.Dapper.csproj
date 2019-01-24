@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Common\Shared.props" />
   
   <PropertyGroup>
@@ -7,7 +7,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="CK.SqlServer" Version="0.2.3--0005-develop" />
+    <PackageReference Include="CK.SqlServer" Version="0.3.0-a" />
     <PackageReference Include="Dapper.StrongName" Version="1.50.5" />
   </ItemGroup>
 
