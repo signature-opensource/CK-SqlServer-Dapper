@@ -2,6 +2,7 @@ using CK.SqlServer;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Dapper
@@ -15,16 +16,12 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The number of rows affected.</returns>
         public static int Execute( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
-            {
-                return SqlMapper.Execute( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
-            }
+            return SqlMapper.Execute( cnn.GetDbConnection(), sql, param, cnn.Transaction, commandTimeout, commandType );
         }
 
         /// <summary>
@@ -33,7 +30,6 @@ namespace Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="sql">The SQL to execute.</param>
         /// <param name="param">The parameters to use for this command.</param>
-        /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The first cell selected as <see cref="object"/>.</returns>
@@ -52,7 +48,6 @@ namespace Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="sql">The SQL to execute.</param>
         /// <param name="param">The parameters to use for this command.</param>
-        /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The first cell returned, as <typeparamref name="T"/>.</returns>
@@ -70,7 +65,6 @@ namespace Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="sql">The SQL to execute.</param>
         /// <param name="param">The parameters to use for this command.</param>
-        /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An <see cref="IDataReader"/> that can be used to iterate over the results of the SQL query.</returns>
@@ -103,7 +97,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
@@ -122,7 +115,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
@@ -140,7 +132,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
@@ -159,7 +150,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
@@ -177,7 +167,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
@@ -196,7 +185,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="buffered">Whether to buffer results in memory.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
@@ -219,7 +207,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>
@@ -241,7 +228,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>
@@ -263,7 +249,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>
@@ -285,7 +270,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>
@@ -307,7 +291,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="buffered">Whether to buffer results in memory.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
@@ -331,7 +314,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -354,7 +336,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -377,7 +358,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -400,7 +380,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -422,7 +401,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         public static SqlMapper.GridReader QueryMultiple( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -444,7 +422,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -471,7 +448,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -498,7 +474,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -526,7 +501,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -555,7 +529,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -585,7 +558,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -609,7 +581,6 @@ namespace Dapper
         /// <param name="types">Array of types in the recordset.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -630,7 +601,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
@@ -649,18 +619,19 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <param name="flags">The behavior flags for this command.</param>
+        /// <param name="cancellationToken">The cancellation token for this command.</param>
         /// <returns>
         /// A sequence of data of <typeparamref name="T"/>; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static async Task<IEnumerable<T>> QueryAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static async Task<IEnumerable<T>> QueryAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered, CancellationToken cancellationToken = default( CancellationToken ) )
         {
             using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
-                return await SqlMapper.QueryAsync<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
+                return await SqlMapper.QueryAsync<T>( cnn.Connection, new CommandDefinition( sql, param, cnn.Transaction, commandTimeout, commandType, flags, cancellationToken ) );
             }
         }
 
@@ -671,7 +642,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QueryFirstAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -689,7 +659,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QueryFirstOrDefaultAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -707,7 +676,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QuerySingleAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -725,7 +693,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QuerySingleOrDefaultAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -742,7 +709,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<dynamic> QueryFirstAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -760,7 +726,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<dynamic> QueryFirstOrDefaultAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -777,7 +742,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<dynamic> QuerySingleAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -794,7 +758,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<dynamic> QuerySingleOrDefaultAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -812,7 +775,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -831,7 +793,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -850,7 +811,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -869,7 +829,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -888,7 +847,6 @@ namespace Dapper
         /// <param name="type">The type to return.</param>
         /// <param name="sql">The SQL to execute for the query.</param>
         /// <param name="param">The parameters to pass, if any.</param>
-        /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
@@ -906,7 +864,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The number of rows affected.</returns>
@@ -930,7 +887,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -956,7 +912,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -983,7 +938,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -1011,7 +965,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -1040,7 +993,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -1070,7 +1022,6 @@ namespace Dapper
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -1094,7 +1045,6 @@ namespace Dapper
         /// <param name="types">Array of types in the recordset.</param>
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
@@ -1114,7 +1064,6 @@ namespace Dapper
         /// <param name="cnn">This SqlConnectionController.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="param">The parameters to use for this query.</param>
-        /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         public static async Task<SqlMapper.GridReader> QueryMultipleAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
@@ -1131,7 +1080,6 @@ namespace Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="sql">The SQL to execute.</param>
         /// <param name="param">The parameters to use for this command.</param>
-        /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An <see cref="IDataReader"/> that can be used to iterate over the results of the SQL query.</returns>
@@ -1164,7 +1112,6 @@ namespace Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="sql">The SQL to execute.</param>
         /// <param name="param">The parameters to use for this command.</param>
-        /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The first cell returned, as <see cref="object"/>.</returns>
@@ -1183,7 +1130,6 @@ namespace Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="sql">The SQL to execute.</param>
         /// <param name="param">The parameters to use for this command.</param>
-        /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The first cell returned, as <typeparamref name="T"/>.</returns>
