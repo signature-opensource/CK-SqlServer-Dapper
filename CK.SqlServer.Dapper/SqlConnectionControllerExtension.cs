@@ -21,7 +21,7 @@ namespace Dapper
         /// <returns>The number of rows affected.</returns>
         public static int Execute( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            return SqlMapper.Execute( cnn.GetDbConnection(), sql, param, cnn.Transaction, commandTimeout, commandType );
+            return SqlMapper.Execute( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
         }
 
         /// <summary>
@@ -35,10 +35,7 @@ namespace Dapper
         /// <returns>The first cell selected as <see cref="object"/>.</returns>
         public static object ExecuteScalar( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
-            {
-                return SqlMapper.ExecuteScalar( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
-            }
+            return SqlMapper.ExecuteScalar( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
         }
 
         /// <summary>
@@ -53,7 +50,7 @@ namespace Dapper
         /// <returns>The first cell returned, as <typeparamref name="T"/>.</returns>
         public static T ExecuteScalar<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.ExecuteScalar<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -85,7 +82,7 @@ namespace Dapper
         /// </example>
         public static IDataReader ExecuteReader( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.ExecuteReader( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -103,7 +100,7 @@ namespace Dapper
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static IEnumerable<dynamic> Query( this ISqlConnectionController cnn, string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, sql, param, cnn.Transaction, buffered, commandTimeout, commandType );
             }
@@ -120,7 +117,7 @@ namespace Dapper
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static dynamic QueryFirst( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QueryFirst( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -137,7 +134,7 @@ namespace Dapper
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static dynamic QueryFirstOrDefault( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QueryFirstOrDefault( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -155,7 +152,7 @@ namespace Dapper
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static dynamic QuerySingle( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QuerySingle( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -172,7 +169,7 @@ namespace Dapper
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static dynamic QuerySingleOrDefault( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QuerySingleOrDefault( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -194,7 +191,7 @@ namespace Dapper
         /// </returns>
         public static IEnumerable<T> Query<T>( this ISqlConnectionController cnn, string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query<T>( cnn.Connection, sql, param, cnn.Transaction, buffered, commandTimeout, commandType );
             }
@@ -215,7 +212,7 @@ namespace Dapper
         /// </returns>
         public static T QueryFirst<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QueryFirst<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -236,7 +233,7 @@ namespace Dapper
         /// </returns>
         public static T QueryFirstOrDefault<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QueryFirstOrDefault<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -257,7 +254,7 @@ namespace Dapper
         /// </returns>
         public static T QuerySingle<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QuerySingle<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -278,7 +275,7 @@ namespace Dapper
         /// </returns>
         public static T QuerySingleOrDefault<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QuerySingleOrDefault<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -301,7 +298,7 @@ namespace Dapper
         /// </returns>
         public static IEnumerable<object> Query( this ISqlConnectionController cnn, Type type, string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, type, sql, param, cnn.Transaction, buffered, commandTimeout, commandType );
             }
@@ -323,7 +320,7 @@ namespace Dapper
         /// </returns>
         public static object QueryFirst( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QueryFirst( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -345,7 +342,7 @@ namespace Dapper
         /// </returns>
         public static object QueryFirstOrDefault( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QueryFirstOrDefault( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -367,7 +364,7 @@ namespace Dapper
         /// </returns>
         public static object QuerySingle( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QuerySingle( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -389,7 +386,7 @@ namespace Dapper
         /// </returns>
         public static object QuerySingleOrDefault( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QuerySingleOrDefault( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -405,7 +402,7 @@ namespace Dapper
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         public static SqlMapper.GridReader QueryMultiple( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.QueryMultiple( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -429,7 +426,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -455,7 +452,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -481,7 +478,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -508,7 +505,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -536,7 +533,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -565,7 +562,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -588,7 +585,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TReturn>( this ISqlConnectionController cnn, string sql, Type[] types, Func<object[], TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( cnn.ExplicitOpen() )
+            // using( cnn.ExplicitOpen() )
             {
                 return SqlMapper.Query( cnn.Connection, sql, types, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -629,7 +626,7 @@ namespace Dapper
         /// </returns>
         public static async Task<IEnumerable<T>> QueryAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered, CancellationToken cancellationToken = default( CancellationToken ) )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync<T>( cnn.Connection, new CommandDefinition( sql, param, cnn.Transaction, commandTimeout, commandType, flags, cancellationToken ) );
             }
@@ -646,7 +643,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QueryFirstAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryFirstAsync<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -663,7 +660,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QueryFirstOrDefaultAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryFirstAsync<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -680,7 +677,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QuerySingleAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QuerySingleAsync<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -697,7 +694,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QuerySingleOrDefaultAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QuerySingleOrDefaultAsync<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -713,7 +710,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<dynamic> QueryFirstAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryFirstAsync( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -730,7 +727,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<dynamic> QueryFirstOrDefaultAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryFirstOrDefaultAsync( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -746,7 +743,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<dynamic> QuerySingleAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QuerySingleAsync( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -762,7 +759,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<dynamic> QuerySingleOrDefaultAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QuerySingleOrDefaultAsync( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -780,7 +777,7 @@ namespace Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static async Task<IEnumerable<object>> QueryAsync( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -798,7 +795,7 @@ namespace Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static async Task<object> QueryFirstAsync( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryFirstAsync( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -816,7 +813,7 @@ namespace Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static async Task<object> QueryFirstOrDefaultAsync( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryFirstOrDefaultAsync( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -834,7 +831,7 @@ namespace Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static async Task<object> QuerySingleAsync( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QuerySingleAsync( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -852,7 +849,7 @@ namespace Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static async Task<object> QuerySingleOrDefaultAsync( this ISqlConnectionController cnn, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QuerySingleOrDefaultAsync( cnn.Connection, type, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -869,7 +866,7 @@ namespace Dapper
         /// <returns>The number of rows affected.</returns>
         public static async Task<int> ExecuteAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.ExecuteAsync( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -894,7 +891,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -919,7 +916,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -945,7 +942,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -972,7 +969,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -1000,7 +997,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -1029,7 +1026,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>( this ISqlConnectionController cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync( cnn.Connection, sql, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -1052,7 +1049,7 @@ namespace Dapper
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static async Task<IEnumerable<TReturn>> QueryAsync<TReturn>( this ISqlConnectionController cnn, string sql, Type[] types, Func<object[], TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryAsync( cnn.Connection, sql, types, map, param, cnn.Transaction, buffered, splitOn, commandTimeout, commandType );
             }
@@ -1068,7 +1065,7 @@ namespace Dapper
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         public static async Task<SqlMapper.GridReader> QueryMultipleAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.QueryMultipleAsync( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -1100,7 +1097,7 @@ namespace Dapper
         /// </example>
         public static async Task<IDataReader> ExecuteReaderAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.ExecuteReaderAsync( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -1117,7 +1114,7 @@ namespace Dapper
         /// <returns>The first cell returned, as <see cref="object"/>.</returns>
         public static async Task<object> ExecuteScalarAsync( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.ExecuteScalarAsync( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }
@@ -1135,7 +1132,7 @@ namespace Dapper
         /// <returns>The first cell returned, as <typeparamref name="T"/>.</returns>
         public static async Task<T> ExecuteScalarAsync<T>( this ISqlConnectionController cnn, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
+            // using( await cnn.ExplicitOpenAsync().ConfigureAwait( false ) )
             {
                 return await SqlMapper.ExecuteScalarAsync<T>( cnn.Connection, sql, param, cnn.Transaction, commandTimeout, commandType );
             }

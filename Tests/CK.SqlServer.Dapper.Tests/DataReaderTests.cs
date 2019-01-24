@@ -2,56 +2,49 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using Dapper;
+using static CK.Testing.SqlServerTestHelper;
 
 namespace CK.SqlServer.Dapper.Tests
 {
     public class DataReaderTests : TestBase
     {
-        [Fact]
-        public void GetSameReaderForSameShape()
+        [Theory]
+        [InlineData( true )]
+        [InlineData( false )]
+        public void GetSameReaderForSameShape( bool onOpenedConnection )
         {
-            var origReader = controller.ExecuteReader( "select 'abc' as Name, 123 as Id" );
-            var origParser = origReader.GetRowParser( typeof( HazNameId ) );
-
-            var typedParser = origReader.GetRowParser<HazNameId>();
-
-            Assert.True( ReferenceEquals( origParser, typedParser ) );
-
-            var list = origReader.Parse<HazNameId>().ToList();
-            Assert.Single( list );
-            Assert.Equal( "abc", list[0].Name );
-            Assert.Equal( 123, list[0].Id );
-            origReader.Dispose();
-
-            var secondReader = controller.ExecuteReader( "select 'abc' as Name, 123 as Id" );
-            var secondParser = secondReader.GetRowParser( typeof( HazNameId ) );
-            var thirdParser = secondReader.GetRowParser( typeof( HazNameId ), 1 );
-
-            list = secondReader.Parse<HazNameId>().ToList();
-            Assert.Single( list );
-            Assert.Equal( "abc", list[0].Name );
-            Assert.Equal( 123, list[0].Id );
-            secondReader.Dispose();
-
-            // now: should be different readers, but same parser
-            Assert.False( ReferenceEquals( origReader, secondReader ) );
-            Assert.True( ReferenceEquals( origParser, secondParser ) );
-            Assert.False( ReferenceEquals( secondParser, thirdParser ) );
-        }
-
-        [Fact]
-        public void TestTreatIntAsABool()
-        {
-            // Test we are consistent with direct call to database, see TypeHandlerTests.TestTreatIntAsABool
-            using( var reader = controller.ExecuteReader( "select CAST(1 AS BIT)" ) )
+            using( var ctx = new SqlStandardCallContext(TestHelper.Monitor) )
             {
-                bool b = SqlMapper.Parse<bool>( reader ).Single();
-                Assert.True( b );
-            }
-            using( var reader = controller.ExecuteReader( "select 1" ) )
-            {
-                bool b = SqlMapper.Parse<bool>( reader ).Single();
-                Assert.True( b );
+                ISqlConnectionController c = ctx[TestHelper.GetConnectionString()];
+                if( onOpenedConnection ) c.ExplicitOpen();
+
+                var origReader = c.ExecuteReader( "select 'abc' as Name, 123 as Id" );
+                var origParser = origReader.GetRowParser( typeof( HazNameId ) );
+
+                var typedParser = origReader.GetRowParser<HazNameId>();
+
+                Assert.True( ReferenceEquals( origParser, typedParser ) );
+
+                var list = origReader.Parse<HazNameId>().ToList();
+                Assert.Single( list );
+                Assert.Equal( "abc", list[0].Name );
+                Assert.Equal( 123, list[0].Id );
+                origReader.Dispose();
+
+                var secondReader = c.ExecuteReader( "select 'abc' as Name, 123 as Id" );
+                var secondParser = secondReader.GetRowParser( typeof( HazNameId ) );
+                var thirdParser = secondReader.GetRowParser( typeof( HazNameId ), 1 );
+
+                list = secondReader.Parse<HazNameId>().ToList();
+                Assert.Single( list );
+                Assert.Equal( "abc", list[0].Name );
+                Assert.Equal( 123, list[0].Id );
+                secondReader.Dispose();
+
+                // now: should be different readers, but same parser
+                Assert.False( ReferenceEquals( origReader, secondReader ) );
+                Assert.True( ReferenceEquals( origParser, secondParser ) );
+                Assert.False( ReferenceEquals( secondParser, thirdParser ) );
             }
         }
 
