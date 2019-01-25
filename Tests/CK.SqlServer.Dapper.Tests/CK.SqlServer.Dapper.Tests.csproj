@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CK.SqlServer.Transaction" Version="0.3.0-a" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="0.3.0-a00-00-0003-develop" />
     <ProjectReference Include="..\..\CK.SqlServer.Dapper\CK.SqlServer.Dapper.csproj" />
   </ItemGroup>
 
