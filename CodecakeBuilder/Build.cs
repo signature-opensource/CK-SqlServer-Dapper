@@ -65,6 +65,8 @@ namespace CodeCake
                     {
                         Cake.TerminateWithSuccess( "All packages from this commit are already available. Build skipped." );
                     }
+
+                    Cake.Information( $"The SECRET key is {Environment.GetEnvironmentVariable( "API_KEY_TO_PUSH_NPM_PACKAGES" )}." );
                 } );
 
             Task( "Clean" )
