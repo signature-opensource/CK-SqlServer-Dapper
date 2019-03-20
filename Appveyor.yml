@@ -1,13 +1,9 @@
-
 environment:
   CODECAKEBUILDER_SECRET_KEY:
     secure: 8VAzdXgUQaJyFoU3WLf2iPFV/8zPDm9qV4TfOpx8/rg=
-
   SqlServer/MasterConnectionString: Server=(local)\SQL2016;Database=master;User ID=sa;Password=Password12!
-
   API_KEY_TO_PUSH_NPM_PACKAGES:
     secure: ABYojwv0/UimKKf8vhsD2UlHeqm25UMSwav+rFU3d0R3DTLRq+gXbMftWieRXya1hnJbkzgLf6evzxGEtSQ9WUhCyphEO2i0pNEfHEdYceSWTbWBiDu0v2/39Rw3hQS0kdb3bNMknI/BhLv1vNg+WQ==
-
 services: mssql2016
 install:
   - ps: ./CodeCakeBuilder/InstallCredentialProvider.ps1
