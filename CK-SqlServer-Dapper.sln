@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CK.SqlServer.Dapper.Tests", "Tests\CK.SqlServer.Dapper.Tests\CK.SqlServer.Dapper.Tests.csproj", "{AFE5AFEA-3EE1-42C9-BA78-0A5362477958}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCakeBuilder", "CodecakeBuilder\CodeCakeBuilder.csproj", "{BB4299CE-D035-444B-B4DE-827A30173532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCakeBuilder", "CodeCakeBuilder\CodeCakeBuilder.csproj", "{BB4299CE-D035-444B-B4DE-827A30173532}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
