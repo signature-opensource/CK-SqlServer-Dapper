@@ -5,7 +5,7 @@
     <Description>Thin wrapper enabling Dapper on ISqlConnectionController that transparently handles potential transactions.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.SqlServer" Version="0.0.0--02ahlgj-local" />
+    <PackageReference Include="CK.SqlServer" Version="0.4.1--0019-develop" />
     <PackageReference Include="Dapper.StrongName" Version="1.50.5" />
   </ItemGroup>
 </Project>
