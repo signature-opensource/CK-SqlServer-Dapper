@@ -579,7 +579,7 @@ namespace Dapper
         /// <param name="commandType">The type of command to execute.</param>
         public static async Task<T> QueryFirstOrDefaultAsync<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
-            return await SqlMapper.QueryFirstAsync<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
+            return await SqlMapper.QueryFirstOrDefaultAsync<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
 
         /// <summary>
