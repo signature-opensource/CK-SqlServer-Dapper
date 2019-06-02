@@ -596,7 +596,7 @@ Order by p.Id
         {
             var result = controller.Query<Topic, Profile, Topic>(
             @"select 123 as ID, 'abc' as Title,
-                     cast('01 Feb 2013' as datetime) as CreateDate,
+                     cast('20130201' as datetime) as CreateDate,
                      'ghi' as Name, 'def' as Phone",
             ( T, P ) => { T.Author = P; return T; },
             null, true, "ID,Name" ).Single();
