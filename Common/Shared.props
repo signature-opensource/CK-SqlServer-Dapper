@@ -11,7 +11,7 @@
   <!--<StandardProperties>-->
   <PropertyGroup>
     <RepositoryUrl>https://github.com/Invenietis/CK-SqlServer-Dapper.git</RepositoryUrl>
-    <ProductName>CK</ProductName>
+    <ProductName>CK[NetCore2]</ProductName>
     <Company>Signature Code</Company>
     <Authors>Signature Code</Authors>
     <Copyright>Copyright Signature-Code 2007-$([System.DateTime]::UtcNow.ToString("yyyy"))</Copyright>
