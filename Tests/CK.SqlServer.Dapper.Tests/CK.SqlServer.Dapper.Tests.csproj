@@ -4,14 +4,14 @@
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.Testing.SqlServer" Version="0.0.0--02nr9cw-local+v0.15.0-a" />
+    <PackageReference Include="CK.Testing.SqlServer" Version="0.15.0-a00-00-0007-develop" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CK.SqlServer.Transaction" Version="0.0.0--02nr9cx-local+v0.10.0-a" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="0.10.0-a00-00-0009-develop" />
     <ProjectReference Include="..\..\CK.SqlServer.Dapper\CK.SqlServer.Dapper.csproj" />
   </ItemGroup>
 </Project>
