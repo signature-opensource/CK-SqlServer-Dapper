@@ -6,6 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.SqlServer" Version="0.12.1--0005-develop" />
-    <PackageReference Include="Dapper.StrongName" Version="2.0.30" />
+    <PackageReference Include="Dapper.StrongName" Version="2.0.35" />
   </ItemGroup>
 </Project>
