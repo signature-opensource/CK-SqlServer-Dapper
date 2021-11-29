@@ -5,7 +5,7 @@ using Dapper;
 
 namespace CK.SqlServer.Dapper.Tests
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
     public sealed class FactLongRunningAttribute : FactAttribute
     {
         public FactLongRunningAttribute()
@@ -18,12 +18,12 @@ namespace CK.SqlServer.Dapper.Tests
         public string Url { get; private set; }
     }
 
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
     public class FactRequiredCompatibilityLevelAttribute : FactAttribute
     {
-        public FactRequiredCompatibilityLevelAttribute(int level) : base()
+        public FactRequiredCompatibilityLevelAttribute( int level ) : base()
         {
-            if (DetectedLevel < level)
+            if( DetectedLevel < level )
             {
                 Skip = $"Compatibility level {level} required; detected {DetectedLevel}";
             }
@@ -33,23 +33,23 @@ namespace CK.SqlServer.Dapper.Tests
         public static readonly int DetectedLevel;
         static FactRequiredCompatibilityLevelAttribute()
         {
-            using (var conn = TestBase.GetOpenConnection())
+            using( var conn = TestBase.GetOpenConnection() )
             {
                 try
                 {
-                    DetectedLevel = conn.QuerySingle<int>("SELECT compatibility_level FROM sys.databases where name = DB_NAME()");
+                    DetectedLevel = conn.QuerySingle<int>( "SELECT compatibility_level FROM sys.databases where name = DB_NAME()" );
                 }
                 catch { /* don't care */ }
             }
         }
     }
 
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
     public class FactUnlessCaseSensitiveDatabaseAttribute : FactAttribute
     {
         public FactUnlessCaseSensitiveDatabaseAttribute() : base()
         {
-            if (IsCaseSensitive)
+            if( IsCaseSensitive )
             {
                 Skip = "Case sensitive database";
             }
@@ -58,15 +58,15 @@ namespace CK.SqlServer.Dapper.Tests
         public static readonly bool IsCaseSensitive;
         static FactUnlessCaseSensitiveDatabaseAttribute()
         {
-            using (var conn = TestBase.GetOpenConnection())
+            using( var conn = TestBase.GetOpenConnection() )
             {
                 try
                 {
-                    conn.Execute("declare @i int; set @I = 1;");
+                    conn.Execute( "declare @i int; set @I = 1;" );
                 }
-                catch (SqlException s)
+                catch( Microsoft.Data.SqlClient.SqlException s )
                 {
-                    if (s.Number == 137)
+                    if( s.Number == 137 )
                         IsCaseSensitive = true;
                     else
                         throw;
