@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Data.SqlTypes;
+using Microsoft.Data.SqlClient;
 using System.Dynamic;
 using System.Linq;
 using Xunit;
@@ -35,17 +34,17 @@ namespace CK.SqlServer.Dapper.Tests
             }
         }
 
-        private static List<Microsoft.SqlServer.Server.SqlDataRecord> CreateSqlDataRecordList( IEnumerable<int> numbers )
+        private static List<Microsoft.Data.SqlClient.Server.SqlDataRecord> CreateSqlDataRecordList( IEnumerable<int> numbers )
         {
-            var number_list = new List<Microsoft.SqlServer.Server.SqlDataRecord>();
+            var number_list = new List<Microsoft.Data.SqlClient.Server.SqlDataRecord>();
 
             // Create an SqlMetaData object that describes our table type.
-            Microsoft.SqlServer.Server.SqlMetaData[] tvp_definition = { new Microsoft.SqlServer.Server.SqlMetaData( "n", SqlDbType.Int ) };
+            Microsoft.Data.SqlClient.Server.SqlMetaData[] tvp_definition = { new Microsoft.Data.SqlClient.Server.SqlMetaData( "n", SqlDbType.Int ) };
 
             foreach( int n in numbers )
             {
                 // Create a new record, using the metadata array above.
-                var rec = new Microsoft.SqlServer.Server.SqlDataRecord( tvp_definition );
+                var rec = new Microsoft.Data.SqlClient.Server.SqlDataRecord( tvp_definition );
                 rec.SetInt32( 0, n );    // Set the value.
                 number_list.Add( rec );      // Add it to the list.
             }
@@ -428,7 +427,7 @@ namespace CK.SqlServer.Dapper.Tests
                 controller.Execute( "CREATE PROC get_ints @integers int_list_type READONLY AS select * from @integers" );
 
                 // Variable type has to be IEnumerable<SqlDataRecord> for TypeHandler to kick in.
-                IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord> records = CreateSqlDataRecordList( new int[] { 1, 2, 3 } );
+                IEnumerable<Microsoft.Data.SqlClient.Server.SqlDataRecord> records = CreateSqlDataRecordList( new int[] { 1, 2, 3 } );
 
                 var nums = controller.Query<int>( "get_ints", new { integers = records }, commandType: CommandType.StoredProcedure ).ToList();
                 Assert.Equal( new int[] { 1, 2, 3 }, nums );
