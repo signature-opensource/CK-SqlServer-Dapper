@@ -7,12 +7,12 @@ environment:
     secure: ABYojwv0/UimKKf8vhsD2UlHeqm25UMSwav+rFU3d0R3DTLRq+gXbMftWieRXya1hnJbkzgLf6evzxGEtSQ9WUhCyphEO2i0pNEfHEdYceSWTbWBiDu0v2/39Rw3hQS0kdb3bNMknI/BhLv1vNg+WQ==
 services: mssql2017
 version: build{build}
-image: Visual Studio 2019
+image: Visual Studio 2022
 clone_folder: C:\CKli-World\CK-Core-Projects\CK-SqlServer-Dapper
 branches:
   only:
-    - master
-    - develop
+    - master-NetCore3
+    - develop-NetCore3
 build_script:
   - dotnet run --project CodeCakeBuilder -nointeraction
 test: off
