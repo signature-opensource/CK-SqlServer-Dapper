@@ -4,8 +4,7 @@
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.Testing.SqlServer" Version="0.0.0--03m8fe4-local+v3.0.0-a" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="CK.Testing.SqlServer" Version="0.0.0--03n3y05-local+v3.0.0-r" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
@@ -14,7 +13,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CK.SqlServer.Transaction" Version="0.0.0--03m8fe5-local+v0.18.0-a" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="0.0.0--03n3y06-local+v0.18.0-r" />
     <ProjectReference Include="..\..\CK.SqlServer.Dapper\CK.SqlServer.Dapper.csproj" />
   </ItemGroup>
 </Project>
