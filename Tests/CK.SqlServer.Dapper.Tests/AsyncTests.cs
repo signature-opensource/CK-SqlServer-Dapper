@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System;
 using System.Threading.Tasks;
 using System.Threading;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Xunit;
 using Dapper;
 using static CK.Testing.SqlServerTestHelper;
