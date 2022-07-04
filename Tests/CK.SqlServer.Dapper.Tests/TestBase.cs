@@ -62,8 +62,6 @@ namespace CK.SqlServer.Dapper.Tests
             Console.WriteLine( ".NET: " + Environment.Version );
             TestHelper.OnlyOnce( () =>
             {
-                TestHelper.LogToConsole = true;
-                TestHelper.Monitor.Info( $"Current User: {Environment.UserDomainName}/{Environment.UserName}" );
                 TestHelper.EnsureDatabase();
             } );
         }
