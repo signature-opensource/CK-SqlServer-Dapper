@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.StObj.Model" Version="21.0.1--0004-develop" />
-    <PackageReference Include="CK.SqlServer" Version="2.0.1--0003-develop" />
+    <PackageReference Include="CK.SqlServer" Version="2.0.1--0004-develop" />
     <PackageReference Include="CK.Dapper" Version="2.0.124" />
   </ItemGroup>
 </Project>
