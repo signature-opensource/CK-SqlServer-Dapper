@@ -33,7 +33,7 @@ namespace CK.SqlServer.Dapper.Tests
         }
 
         [Fact]
-        public async Task TestBasicStringUsageQueryFirstAsyncDynamic()
+        public async Task TestBasicStringUsageQueryFirstDynamicAsync()
         {
             var str = await controller.QueryFirstAsync( "select 'abc' as [Value] union all select @txt", new { txt = "def" } ).ConfigureAwait( false );
             Assert.Equal( "abc", str.Value );
@@ -47,14 +47,14 @@ namespace CK.SqlServer.Dapper.Tests
         }
 
         [Fact]
-        public async Task TestBasicStringUsageQueryFirstOrDefaultAsyncDynamic()
+        public async Task TestBasicStringUsageQueryFirstOrDefaultDynamicAsync()
         {
             var str = await controller.QueryFirstOrDefaultAsync( "select null as [Value] union all select @txt", new { txt = "def" } ).ConfigureAwait( false );
             Assert.Null( str.Value );
         }
 
         [Fact]
-        public async Task TestBasicStringUsageQuerySingleAsyncDynamic()
+        public async Task TestBasicStringUsageQuerySingleDynamicAsync()
         {
             var str = await controller.QuerySingleAsync<string>( "select 'abc' as [Value]" ).ConfigureAwait( false );
             Assert.Equal( "abc", str );
@@ -75,14 +75,14 @@ namespace CK.SqlServer.Dapper.Tests
         }
 
         [Fact]
-        public async Task TestBasicStringUsageQuerySingleOrDefaultAsyncDynamic()
+        public async Task TestBasicStringUsageQuerySingleOrDefaultDynamicAsync()
         {
             var str = await controller.QuerySingleOrDefaultAsync( "select null as [Value]" ).ConfigureAwait( false );
             Assert.Null( str.Value );
         }
 
         [Fact]
-        public async Task TestBasicStringUsageAsyncNonBuffered()
+        public async Task TestBasicStringUsageNonBufferedAsync()
         {
             var query = await controller.QueryAsync<string>( "select 'abc' as [Value] union all select @txt", new { txt = "def" }, flags: CommandFlags.None ).ConfigureAwait( false );
             var arr = query.ToArray();
