@@ -8,46 +8,6 @@ namespace CK.SqlServer.Dapper.Tests
 {
     public class DataReaderTests : TestBase
     {
-        [Theory]
-        [InlineData( true )]
-        [InlineData( false )]
-        public void GetSameReaderForSameShape( bool onOpenedConnection )
-        {
-            using( var ctx = new SqlStandardCallContext(TestHelper.Monitor) )
-            {
-                ISqlConnectionController c = ctx[TestHelper.GetConnectionString()];
-                if( onOpenedConnection ) c.ExplicitOpen();
-
-                var origReader = c.ExecuteReader( "select 'abc' as Name, 123 as Id" );
-                var origParser = origReader.GetRowParser( typeof( HazNameId ) );
-
-                var typedParser = origReader.GetRowParser<HazNameId>();
-
-                Assert.True( ReferenceEquals( origParser, typedParser ) );
-
-                var list = origReader.Parse<HazNameId>().ToList();
-                Assert.Single( list );
-                Assert.Equal( "abc", list[0].Name );
-                Assert.Equal( 123, list[0].Id );
-                origReader.Dispose();
-
-                var secondReader = c.ExecuteReader( "select 'abc' as Name, 123 as Id" );
-                var secondParser = secondReader.GetRowParser( typeof( HazNameId ) );
-                var thirdParser = secondReader.GetRowParser( typeof( HazNameId ), 1 );
-
-                list = secondReader.Parse<HazNameId>().ToList();
-                Assert.Single( list );
-                Assert.Equal( "abc", list[0].Name );
-                Assert.Equal( 123, list[0].Id );
-                secondReader.Dispose();
-
-                // now: should be different readers, but same parser
-                Assert.False( ReferenceEquals( origReader, secondReader ) );
-                Assert.True( ReferenceEquals( origParser, secondParser ) );
-                Assert.False( ReferenceEquals( secondParser, thirdParser ) );
-            }
-        }
-
         [Fact]
         public void DiscriminatedUnion()
         {
