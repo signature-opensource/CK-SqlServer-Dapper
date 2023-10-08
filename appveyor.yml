@@ -8,10 +8,6 @@ services: mssql2017
 version: build{build}
 image: Visual Studio 2022
 clone_folder: C:\CKli-World\CK-Core-Projects\CK-SqlServer-Dapper
-branches:
-  only:
-  - master
-  - develop
 test: off
 on_finish:
 - ps: "'Get-ChildItem -Recurse *.log | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName ''Log files'' }'"
