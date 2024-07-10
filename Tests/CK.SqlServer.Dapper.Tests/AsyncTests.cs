@@ -14,7 +14,7 @@ namespace CK.SqlServer.Dapper.Tests
 {
     public class AsyncTests : TestBase
     {
-        private SqlConnection _marsConnection;
+        private SqlConnection? _marsConnection;
         private SqlConnection MarsConnection => _marsConnection ?? (_marsConnection = GetOpenConnection( true ));
 
         [Fact]
@@ -50,7 +50,7 @@ namespace CK.SqlServer.Dapper.Tests
         public async Task TestBasicStringUsageQueryFirstOrDefaultAsyncDynamic_Async()
         {
             var str = await controller.QueryFirstOrDefaultAsync( "select null as [Value] union all select @txt", new { txt = "def" } );
-            Assert.Null( str.Value );
+            Assert.Null( str?.Value );
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace CK.SqlServer.Dapper.Tests
         public async Task TestBasicStringUsageQuerySingleOrDefaultAsyncDynamic_Async()
         {
             var str = await controller.QuerySingleOrDefaultAsync( "select null as [Value]" );
-            Assert.Null( str.Value );
+            Assert.Null( str?.Value );
         }
 
         [Fact]
@@ -393,7 +393,7 @@ namespace CK.SqlServer.Dapper.Tests
         [Collection( NonParallelDefinition.Name )]
         public class AsyncQueryCacheTests : TestBase
         {
-            private SqlConnection _marsConnection;
+            private SqlConnection? _marsConnection;
             private SqlConnection MarsConnection => _marsConnection ?? (_marsConnection = GetOpenConnection( true ));
 
             [Fact]
@@ -424,7 +424,7 @@ namespace CK.SqlServer.Dapper.Tests
 
         private class BasicType
         {
-            public string Value { get; set; }
+            public string? Value { get; set; }
         }
 
         [Fact]
@@ -432,10 +432,10 @@ namespace CK.SqlServer.Dapper.Tests
         {
             Type type = Common.GetSomeType();
 
-            dynamic actual = (await MarsConnection.QueryAsync( type, "select @A as [A], @B as [B]", new { A = 123, B = "abc" } )).FirstOrDefault();
-            Assert.Equal( ((object)actual).GetType(), type );
-            int a = actual.A;
-            string b = actual.B;
+            dynamic? actual = (await MarsConnection.QueryAsync( type, "select @A as [A], @B as [B]", new { A = 123, B = "abc" } )).FirstOrDefault();
+            Assert.Equal( ((object?)actual)?.GetType(), type );
+            int a = actual?.A;
+            string? b = actual?.B;
             Assert.Equal( 123, a );
             Assert.Equal( "abc", b );
         }
@@ -519,7 +519,7 @@ SET @AddressPersonId = @PersonId", p );
             p.Output( bob, b => b.Address.Name );
             p.Output( bob, b => b.Address.PersonId );
 
-            var result = (int)(await controller.ExecuteScalarAsync( @"
+            var result = (int?)(await controller.ExecuteScalarAsync( @"
 SET @Occupation = 'grillmaster' 
 SET @PersonId = @PersonId + 1 
 SET @NumberOfLegs = @NumberOfLegs - 1
@@ -689,11 +689,11 @@ SET @AddressPersonId = @PersonId", p ) )
             try
             {
                 var d = await controller.QueryFirstOrDefaultAsync<Dog>( "select * from #dog" );
-                Assert.Equal( "Alf", d.Name );
-                Assert.Equal( 1, d.Age );
+                Assert.Equal( "Alf", d?.Name );
+                Assert.Equal( 1, d?.Age );
                 controller.Execute( "alter table #dog drop column Name" );
                 d = await controller.QueryFirstOrDefaultAsync<Dog>( "select * from #dog" );
-                Assert.Null( d.Name );
+                Assert.Null( d!.Name );
                 Assert.Equal( 1, d.Age );
             }
             finally

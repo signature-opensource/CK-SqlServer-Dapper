@@ -53,7 +53,7 @@ namespace CK.SqlServer.Dapper.Tests
             const char c1 = 'ą';
             const char c3 = 'ó';
             NoDefaultConstructorWithChar nodef = controller.Query<NoDefaultConstructorWithChar>( "select @c1 c1, @c2 c2, @c3 c3", new { c1 = c1, c2 = (char?)null, c3 = c3 } ).First();
-            Assert.Equal( nodef.Char1, c1 );
+            Assert.Equal( c1, nodef.Char1 );
             Assert.Null( nodef.Char2 );
             Assert.Equal( nodef.Char3, c3 );
         }
@@ -135,7 +135,7 @@ SELECT * FROM @ExplicitConstructors"
             }
 
             public int A { get; set; }
-            public string B { get; set; }
+            public string? B { get; set; }
         }
 
         private class ConstructorsWithAccessModifiers
@@ -151,7 +151,7 @@ SELECT * FROM @ExplicitConstructors"
             }
 
             public int A { get; set; }
-            public string B { get; set; }
+            public string? B { get; set; }
         }
 
         private class NoDefaultConstructor

@@ -571,7 +571,7 @@ namespace CK.SqlServer.Dapper.Tests
 
         public class WithInit : ISupportInitialize
         {
-            public string Value { get; set; }
+            public string? Value { get; set; }
             public int Flags { get; set; }
 
             void ISupportInitialize.BeginInit() => Flags++;
@@ -951,7 +951,7 @@ SET @AddressPersonId = @PersonId", p );
                 p.Output( bob, b => b.Address.Name );
                 p.Output( bob, b => b.Address.PersonId );
 
-                var result = (int)controller.ExecuteScalar( @"
+                var result = (int?)controller.ExecuteScalar( @"
 SET @Occupation = 'grillmaster' 
 SET @PersonId = @PersonId + 1 
 SET @NumberOfLegs = @NumberOfLegs - 1
@@ -1100,7 +1100,7 @@ SET @AddressPersonId = @PersonId", p ) )
 
         public class HazX
         {
-            public string X { get; set; }
+            public string? X { get; set; }
         }
 
         [Fact]
@@ -1176,7 +1176,7 @@ end" );
         public class ParameterWithIndexer
         {
             public int A { get; set; }
-            public virtual string this[string columnName]
+            public virtual string? this[string columnName]
             {
                 get { return null; }
                 set { }
@@ -1199,13 +1199,13 @@ end" );
 
         public class MultipleParametersWithIndexerDeclaringType
         {
-            public object this[object field]
+            public object? this[object field]
             {
                 get { return null; }
                 set { }
             }
 
-            public object this[object field, int index]
+            public object? this[object field, int index]
             {
                 get { return null; }
                 set { }
@@ -1226,15 +1226,15 @@ end" );
             var fromDb = controller.Query<Dyno>( "select * from #Dyno where Id=@Id", orig ).Single();
             Assert.Equal( (Guid)fromDb.Id, guid );
             Assert.Equal( "T Rex", fromDb.Name );
-            Assert.Equal( 123L, (long)fromDb.Foo );
+            Assert.Equal( 123L, (long?)fromDb.Foo );
         }
 
         public class Dyno
         {
-            public dynamic Id { get; set; }
-            public string Name { get; set; }
+            public dynamic? Id { get; set; }
+            public string? Name { get; set; }
 
-            public object Foo { get; set; }
+            public object? Foo { get; set; }
         }
 
         [Fact]

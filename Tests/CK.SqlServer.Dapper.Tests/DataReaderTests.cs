@@ -44,7 +44,7 @@ select 'def' as Name, 2 as Type, 4.0 as Value" ) )
             var foo = (Discriminated_Foo)result[0];
             Assert.Equal( "abc", foo.Name );
             var bar = (Discriminated_Bar)result[1];
-            Assert.Equal( bar.Value, (float)4.0 );
+            Assert.Equal( (float)4.0, bar.Value );
         }
 
         [Fact]
@@ -67,7 +67,7 @@ select 'def' as Name, 2 as Type, 4.0 as Value, 2 as Id, 'qwe' as Name" ) )
 
                     do
                     {
-                        DiscriminatedWithMultiMapping_BaseType obj = null;
+                        DiscriminatedWithMultiMapping_BaseType? obj = null;
                         switch( reader.GetInt32( col ) )
                         {
                             case 1:
@@ -91,11 +91,11 @@ select 'def' as Name, 2 as Type, 4.0 as Value, 2 as Id, 'qwe' as Name" ) )
             Assert.Equal( 2, result[1].Type );
             var foo = (DiscriminatedWithMultiMapping_Foo)result[0];
             Assert.Equal( "abc", foo.Name );
-            Assert.Equal( 1, foo.HazNameIdObject.Id );
+            Assert.Equal( 1, foo.HazNameIdObject!.Id );
             Assert.Equal( "zxc", foo.HazNameIdObject.Name );
             var bar = (DiscriminatedWithMultiMapping_Bar)result[1];
-            Assert.Equal( bar.Value, (float)4.0 );
-            Assert.Equal( 2, bar.HazNameIdObject.Id );
+            Assert.Equal( (float)4.0 , bar.Value);
+            Assert.Equal( 2, bar.HazNameIdObject!.Id );
             Assert.Equal( "qwe", bar.HazNameIdObject.Name );
         }
 
@@ -106,7 +106,7 @@ select 'def' as Name, 2 as Type, 4.0 as Value, 2 as Id, 'qwe' as Name" ) )
 
         private class Discriminated_Foo : Discriminated_BaseType
         {
-            public string Name { get; set; }
+            public string? Name { get; set; }
             public override int Type => 1;
         }
 
@@ -118,19 +118,19 @@ select 'def' as Name, 2 as Type, 4.0 as Value, 2 as Id, 'qwe' as Name" ) )
 
         private abstract class DiscriminatedWithMultiMapping_BaseType : Discriminated_BaseType
         {
-            public abstract HazNameId HazNameIdObject { get; set; }
+            public abstract HazNameId? HazNameIdObject { get; set; }
         }
 
         private class DiscriminatedWithMultiMapping_Foo : DiscriminatedWithMultiMapping_BaseType
         {
-            public override HazNameId HazNameIdObject { get; set; }
-            public string Name { get; set; }
+            public override HazNameId? HazNameIdObject { get; set; }
+            public string? Name { get; set; }
             public override int Type => 1;
         }
 
         private class DiscriminatedWithMultiMapping_Bar : DiscriminatedWithMultiMapping_BaseType
         {
-            public override HazNameId HazNameIdObject { get; set; }
+            public override HazNameId? HazNameIdObject { get; set; }
             public float Value { get; set; }
             public override int Type => 2;
         }

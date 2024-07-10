@@ -26,7 +26,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The number of rows affected.</returns>
-        public static int Execute( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static int Execute( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Execute( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -40,7 +40,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The first cell selected as <see cref="object"/>.</returns>
-        public static object ExecuteScalar( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static object? ExecuteScalar( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.ExecuteScalar( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -55,7 +55,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The first cell returned, as <typeparamref name="T"/>.</returns>
-        public static T ExecuteScalar<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static T? ExecuteScalar<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.ExecuteScalar<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -84,7 +84,7 @@ namespace Dapper
         /// ]]>
         /// </code>
         /// </example>
-        public static IDataReader ExecuteReader( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static IDataReader ExecuteReader( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.ExecuteReader( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -99,7 +99,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static IEnumerable<dynamic> Query( this ISqlConnectionController c, string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<dynamic> Query( this ISqlConnectionController c, string sql, object? param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, sql, param, c.Transaction, buffered, commandTimeout, commandType );
         }
@@ -113,7 +113,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static dynamic QueryFirst( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static dynamic QueryFirst( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirst( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -127,7 +127,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static dynamic QueryFirstOrDefault( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static dynamic? QueryFirstOrDefault( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstOrDefault( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -142,7 +142,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static dynamic QuerySingle( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static dynamic QuerySingle( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingle( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -156,7 +156,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static dynamic QuerySingleOrDefault( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static dynamic? QuerySingleOrDefault( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleOrDefault( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -175,7 +175,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static IEnumerable<T> Query<T>( this ISqlConnectionController c, string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<T> Query<T>( this ISqlConnectionController c, string sql, object? param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query<T>( c.Connection, sql, param, c.Transaction, buffered, commandTimeout, commandType );
         }
@@ -193,7 +193,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static T QueryFirst<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static T QueryFirst<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirst<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -211,7 +211,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static T QueryFirstOrDefault<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static T? QueryFirstOrDefault<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstOrDefault<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -229,7 +229,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static T QuerySingle<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static T QuerySingle<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingle<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -247,7 +247,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static T QuerySingleOrDefault<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static T? QuerySingleOrDefault<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleOrDefault<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -267,7 +267,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static IEnumerable<object> Query( this ISqlConnectionController c, Type type, string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<object> Query( this ISqlConnectionController c, Type type, string sql, object? param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, type, sql, param, c.Transaction, buffered, commandTimeout, commandType );
         }
@@ -286,7 +286,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static object QueryFirst( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static object QueryFirst( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirst( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -305,7 +305,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static object QueryFirstOrDefault( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static object? QueryFirstOrDefault( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstOrDefault( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -324,7 +324,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static object QuerySingle( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static object QuerySingle( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingle( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -343,7 +343,7 @@ namespace Dapper
         /// A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static object QuerySingleOrDefault( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static object? QuerySingleOrDefault( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleOrDefault( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -356,7 +356,7 @@ namespace Dapper
         /// <param name="param">The parameters to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        public static SqlMapper.GridReader QueryMultiple( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static SqlMapper.GridReader QueryMultiple( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryMultiple( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -377,7 +377,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -400,7 +400,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -423,7 +423,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -447,7 +447,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -472,7 +472,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -498,7 +498,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -518,7 +518,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TReturn>( this ISqlConnectionController c, string sql, Type[] types, Func<object[], TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static IEnumerable<TReturn> Query<TReturn>( this ISqlConnectionController c, string sql, Type[] types, Func<object[], TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.Query( c.Connection, sql, types, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -533,7 +533,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static Task<IEnumerable<dynamic>> QueryAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<dynamic>> QueryAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -553,7 +553,7 @@ namespace Dapper
         /// A sequence of data of <typeparamref name="T"/>; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
         /// </returns>
-        public static Task<IEnumerable<T>> QueryAsync<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered, CancellationToken cancellationToken = default( CancellationToken ) )
+        public static Task<IEnumerable<T>> QueryAsync<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered, CancellationToken cancellationToken = default( CancellationToken ) )
         {
             return SqlMapper.QueryAsync<T>( c.Connection, new CommandDefinition( sql, param, c.Transaction, commandTimeout, commandType, flags, cancellationToken ) );
         }
@@ -567,7 +567,7 @@ namespace Dapper
         /// <param name="param">The parameters to pass, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        public static Task<T> QueryFirstAsync<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<T> QueryFirstAsync<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstAsync<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -581,7 +581,7 @@ namespace Dapper
         /// <param name="param">The parameters to pass, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        public static Task<T> QueryFirstOrDefaultAsync<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<T?> QueryFirstOrDefaultAsync<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstOrDefaultAsync<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -595,7 +595,7 @@ namespace Dapper
         /// <param name="param">The parameters to pass, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        public static Task<T> QuerySingleAsync<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<T> QuerySingleAsync<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleAsync<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -609,7 +609,7 @@ namespace Dapper
         /// <param name="param">The parameters to pass, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        public static Task<T> QuerySingleOrDefaultAsync<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<T?> QuerySingleOrDefaultAsync<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleOrDefaultAsync<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -622,7 +622,7 @@ namespace Dapper
         /// <param name="param">The parameters to pass, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        public static Task<dynamic> QueryFirstAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<dynamic> QueryFirstAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -636,7 +636,7 @@ namespace Dapper
         /// <param name="param">The parameters to pass, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        public static Task<dynamic> QueryFirstOrDefaultAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<dynamic?> QueryFirstOrDefaultAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstOrDefaultAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -649,7 +649,7 @@ namespace Dapper
         /// <param name="param">The parameters to pass, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        public static Task<dynamic> QuerySingleAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<dynamic> QuerySingleAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -662,7 +662,7 @@ namespace Dapper
         /// <param name="param">The parameters to pass, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        public static Task<dynamic> QuerySingleOrDefaultAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<dynamic?> QuerySingleOrDefaultAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleOrDefaultAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -677,7 +677,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
-        public static Task<IEnumerable<object>> QueryAsync( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<object>> QueryAsync( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -692,7 +692,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
-        public static Task<object> QueryFirstAsync( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<object> QueryFirstAsync( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstAsync( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -707,7 +707,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
-        public static Task<object> QueryFirstOrDefaultAsync( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<object?> QueryFirstOrDefaultAsync( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryFirstOrDefaultAsync( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -722,7 +722,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
-        public static Task<object> QuerySingleAsync( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<object> QuerySingleAsync( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleAsync( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -737,7 +737,7 @@ namespace Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
-        public static Task<object> QuerySingleOrDefaultAsync( this ISqlConnectionController c, Type type, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<object?> QuerySingleOrDefaultAsync( this ISqlConnectionController c, Type type, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QuerySingleOrDefaultAsync( c.Connection, type, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -751,7 +751,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The number of rows affected.</returns>
-        public static Task<int> ExecuteAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<int> ExecuteAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.ExecuteAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -773,7 +773,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -795,7 +795,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -818,7 +818,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -842,7 +842,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -867,7 +867,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -893,7 +893,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>( this ISqlConnectionController c, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, sql, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -913,7 +913,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static Task<IEnumerable<TReturn>> QueryAsync<TReturn>( this ISqlConnectionController c, string sql, Type[] types, Func<object[], TReturn> map, object param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<IEnumerable<TReturn>> QueryAsync<TReturn>( this ISqlConnectionController c, string sql, Type[] types, Func<object[], TReturn> map, object? param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryAsync( c.Connection, sql, types, map, param, c.Transaction, buffered, splitOn, commandTimeout, commandType );
         }
@@ -926,7 +926,7 @@ namespace Dapper
         /// <param name="param">The parameters to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        public static Task<SqlMapper.GridReader> QueryMultipleAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<SqlMapper.GridReader> QueryMultipleAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.QueryMultipleAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -955,7 +955,7 @@ namespace Dapper
         /// ]]>
         /// </code>
         /// </example>
-        public static async Task<IDataReader> ExecuteReaderAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static async Task<IDataReader> ExecuteReaderAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return await SqlMapper.ExecuteReaderAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -969,7 +969,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The first cell returned, as <see cref="object"/>.</returns>
-        public static Task<object> ExecuteScalarAsync( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<object?> ExecuteScalarAsync( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.ExecuteScalarAsync( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }
@@ -984,7 +984,7 @@ namespace Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>The first cell returned, as <typeparamref name="T"/>.</returns>
-        public static Task<T> ExecuteScalarAsync<T>( this ISqlConnectionController c, string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null )
+        public static Task<T?> ExecuteScalarAsync<T>( this ISqlConnectionController c, string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null )
         {
             return SqlMapper.ExecuteScalarAsync<T>( c.Connection, sql, param, c.Transaction, commandTimeout, commandType );
         }

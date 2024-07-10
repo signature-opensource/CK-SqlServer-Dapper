@@ -61,7 +61,7 @@ namespace CK.SqlServer.Dapper.Tests
 
             // custom mapping
             var map = new CustomPropertyTypeMap( typeof( TypeWithMapping ),
-                ( type, columnName ) => type.GetProperties().FirstOrDefault( prop => GetDescriptionFromAttribute( prop ) == columnName ) );
+                ( type, columnName ) => type.GetProperties().FirstOrDefault( prop => GetDescriptionFromAttribute( prop ) == columnName )! );
             SqlMapper.SetTypeMap( typeof( TypeWithMapping ), map );
 
             item = controller.Query<TypeWithMapping>( "Select 'AVal' as A, 'BVal' as B" ).Single();
@@ -75,14 +75,14 @@ namespace CK.SqlServer.Dapper.Tests
             Assert.Equal( "BVal", item.B );
         }
 
-        private static string GetDescriptionFromAttribute( MemberInfo member )
+        private static string? GetDescriptionFromAttribute( MemberInfo member )
         {
             if( member == null ) return null;
 #if NETCOREAPP1_0
         var data = member.CustomAttributes.FirstOrDefault(x => x.AttributeType == typeof(DescriptionAttribute));
         return (string)data?.ConstructorArguments.Single().Value;
 #else
-            var attrib = (DescriptionAttribute)Attribute.GetCustomAttribute( member, typeof( DescriptionAttribute ), false );
+            var attrib = (DescriptionAttribute?)Attribute.GetCustomAttribute( member, typeof( DescriptionAttribute ), false );
             return attrib?.Description;
 #endif
         }
@@ -90,10 +90,10 @@ namespace CK.SqlServer.Dapper.Tests
         public class TypeWithMapping
         {
             [Description( "B" )]
-            public string A { get; set; }
+            public string? A { get; set; }
 
             [Description( "A" )]
-            public string B { get; set; }
+            public string? B { get; set; }
         }
 
         [Fact]
@@ -235,17 +235,17 @@ namespace CK.SqlServer.Dapper.Tests
             var row = controller.Query<LotsOfNumerics>( sql ).Single();
 
             Assert.True( row.N_Bool );
-            Assert.Equal( row.N_SByte, (sbyte)1 );
-            Assert.Equal( row.N_Byte, (byte)1 );
-            Assert.Equal( row.N_Int, (int)1 );
-            Assert.Equal( row.N_UInt, (uint)1 );
-            Assert.Equal( row.N_Short, (short)1 );
-            Assert.Equal( row.N_UShort, (ushort)1 );
-            Assert.Equal( row.N_Long, (long)1 );
-            Assert.Equal( row.N_ULong, (ulong)1 );
-            Assert.Equal( row.N_Float, (float)1 );
-            Assert.Equal( row.N_Double, (double)1 );
-            Assert.Equal( row.N_Decimal, (decimal)1 );
+            Assert.Equal( (sbyte)1 , row.N_SByte);
+            Assert.Equal( (byte)1 , row.N_Byte);
+            Assert.Equal( (int)1 , row.N_Int);
+            Assert.Equal( (uint)1 , row.N_UInt);
+            Assert.Equal( (short)1 , row.N_Short);
+            Assert.Equal( (ushort)1 , row.N_UShort);
+            Assert.Equal( (long)1 , row.N_Long);
+            Assert.Equal( (ulong)1 , row.N_ULong);
+            Assert.Equal( (float)1 , row.N_Float);
+            Assert.Equal( (double)1 , row.N_Double);
+            Assert.Equal( (decimal)1 , row.N_Decimal);
 
             Assert.Equal( LotsOfNumerics.E_Byte.B, row.P_Byte );
             Assert.Equal( LotsOfNumerics.E_SByte.B, row.P_SByte );
@@ -256,27 +256,27 @@ namespace CK.SqlServer.Dapper.Tests
             Assert.Equal( LotsOfNumerics.E_Long.B, row.P_Long );
             Assert.Equal( LotsOfNumerics.E_ULong.B, row.P_ULong );
 
-            Assert.True( row.N_N_Bool.Value );
-            Assert.Equal( row.N_N_SByte.Value, (sbyte)1 );
-            Assert.Equal( row.N_N_Byte.Value, (byte)1 );
-            Assert.Equal( row.N_N_Int.Value, (int)1 );
-            Assert.Equal( row.N_N_UInt.Value, (uint)1 );
-            Assert.Equal( row.N_N_Short.Value, (short)1 );
-            Assert.Equal( row.N_N_UShort.Value, (ushort)1 );
-            Assert.Equal( row.N_N_Long.Value, (long)1 );
-            Assert.Equal( row.N_N_ULong.Value, (ulong)1 );
-            Assert.Equal( row.N_N_Float.Value, (float)1 );
-            Assert.Equal( row.N_N_Double.Value, (double)1 );
-            Assert.Equal( row.N_N_Decimal, (decimal)1 );
+            Assert.True( row.N_N_Bool!.Value );
+            Assert.Equal( (sbyte)1 , row.N_N_SByte!.Value);
+            Assert.Equal( (byte)1 , row.N_N_Byte!.Value);
+            Assert.Equal( (int)1 , row.N_N_Int!.Value);
+            Assert.Equal( (uint)1 , row.N_N_UInt!.Value);
+            Assert.Equal( (short)1 , row.N_N_Short!.Value);
+            Assert.Equal( (ushort)1 , row.N_N_UShort!.Value);
+            Assert.Equal( (long)1 , row.N_N_Long!.Value);
+            Assert.Equal( (ulong)1 , row.N_N_ULong!.Value);
+            Assert.Equal( (float)1 , row.N_N_Float!.Value);
+            Assert.Equal( (double)1 , row.N_N_Double!.Value);
+            Assert.Equal( row.N_N_Decimal, 1 );
 
-            Assert.Equal( LotsOfNumerics.E_Byte.B, row.N_P_Byte.Value );
-            Assert.Equal( LotsOfNumerics.E_SByte.B, row.N_P_SByte.Value );
-            Assert.Equal( LotsOfNumerics.E_Short.B, row.N_P_Short.Value );
-            Assert.Equal( LotsOfNumerics.E_UShort.B, row.N_P_UShort.Value );
-            Assert.Equal( LotsOfNumerics.E_Int.B, row.N_P_Int.Value );
-            Assert.Equal( LotsOfNumerics.E_UInt.B, row.N_P_UInt.Value );
-            Assert.Equal( LotsOfNumerics.E_Long.B, row.N_P_Long.Value );
-            Assert.Equal( LotsOfNumerics.E_ULong.B, row.N_P_ULong.Value );
+            Assert.Equal( LotsOfNumerics.E_Byte.B, row.N_P_Byte!.Value );
+            Assert.Equal( LotsOfNumerics.E_SByte.B, row.N_P_SByte!.Value );
+            Assert.Equal( LotsOfNumerics.E_Short.B, row.N_P_Short!.Value );
+            Assert.Equal( LotsOfNumerics.E_UShort.B, row.N_P_UShort!.Value );
+            Assert.Equal( LotsOfNumerics.E_Int.B, row.N_P_Int!.Value );
+            Assert.Equal( LotsOfNumerics.E_UInt.B, row.N_P_UInt!.Value );
+            Assert.Equal( LotsOfNumerics.E_Long.B, row.N_P_Long!.Value );
+            Assert.Equal( LotsOfNumerics.E_ULong.B, row.N_P_ULong!.Value );
 
             TestBigIntForEverythingWorksGeneric<bool>( true, dbType );
             TestBigIntForEverythingWorksGeneric<sbyte>( (sbyte)1, dbType );
@@ -387,11 +387,11 @@ namespace CK.SqlServer.Dapper.Tests
                 throw new FormatException( "Invalid conversion to RatingValue" );
             }
 
-            public override void SetValue( IDbDataParameter parameter, RatingValue value )
+            public override void SetValue( IDbDataParameter parameter, RatingValue? value )
             {
                 // ... null, range checks etc ...
                 parameter.DbType = System.Data.DbType.Int32;
-                parameter.Value = value.Value;
+                parameter.Value = value!.Value;
             }
         }
 
@@ -403,8 +403,8 @@ namespace CK.SqlServer.Dapper.Tests
 
         public class MyResult
         {
-            public string CategoryName { get; set; }
-            public RatingValue CategoryRating { get; set; }
+            public string? CategoryName { get; set; }
+            public RatingValue? CategoryRating { get; set; }
         }
 
         [Fact]
@@ -414,7 +414,7 @@ namespace CK.SqlServer.Dapper.Tests
             var foo = controller.Query<MyResult>( "SELECT 'Foo' AS CategoryName, 200 AS CategoryRating" ).Single();
 
             Assert.Equal( "Foo", foo.CategoryName );
-            Assert.Equal( 200, foo.CategoryRating.Value );
+            Assert.Equal( 200, foo.CategoryRating!.Value );
         }
 
         [Fact]
@@ -434,9 +434,9 @@ namespace CK.SqlServer.Dapper.Tests
 
             public static readonly StringListTypeHandler Default = new StringListTypeHandler();
             //Just a simple List<string> type handler implementation
-            public override void SetValue( IDbDataParameter parameter, List<string> value )
+            public override void SetValue( IDbDataParameter parameter, List<string>? value )
             {
-                parameter.Value = string.Join( ",", value );
+                parameter.Value = string.Join( ",", value! );
             }
 
             public override List<string> Parse( object value )
@@ -447,7 +447,7 @@ namespace CK.SqlServer.Dapper.Tests
 
         public class MyObjectWithStringList
         {
-            public List<string> Names { get; set; }
+            public List<string>? Names { get; set; }
         }
 
         [Fact]
@@ -471,7 +471,7 @@ namespace CK.SqlServer.Dapper.Tests
                 const string names = "Sam,Kyro";
                 List<string> names_list = names.Split( ',' ).ToList();
                 var foo = controller.Query<string>( "INSERT INTO #Issue253 (Names) VALUES (@Names); SELECT Names FROM #Issue253;", new { Names = names_list } ).Single();
-                Assert.Equal( foo, names );
+                Assert.Equal( names, foo );
             }
             finally
             {
@@ -481,7 +481,7 @@ namespace CK.SqlServer.Dapper.Tests
 
         public class RecordingTypeHandler<T> : SqlMapper.TypeHandler<T>
         {
-            public override void SetValue( IDbDataParameter parameter, T value )
+            public override void SetValue( IDbDataParameter parameter, T? value )
             {
                 SetValueWasCalled = true;
                 parameter.Value = value;
@@ -609,8 +609,8 @@ namespace CK.SqlServer.Dapper.Tests
                 insert @vals (A,B,C) values (1,0,null);
                 select * from @vals" ).Single();
             Assert.NotNull( obj );
-            Assert.True( obj.A.Value );
-            Assert.False( obj.B.Value );
+            Assert.True( obj.A!.Value );
+            Assert.False( obj.B!.Value );
             Assert.Null( obj.C );
         }
 
@@ -645,7 +645,7 @@ namespace CK.SqlServer.Dapper.Tests
             Assert.Equal( "Error parsing column 0 (Id=cf0ef7ac-b6fe-4e24-aeda-a2b45bb5654e - Object)", ex.Message );
         }
 
-        public class Issue149_Person { public string Id { get; set; } }
+        public class Issue149_Person { public string? Id { get; set; } }
 
         [Fact]
         public void Issue295_NullableDateTime_SqlServer() => Common.TestDateTime( controller );
@@ -680,13 +680,13 @@ namespace CK.SqlServer.Dapper.Tests
             var parameterlessWorks = controller.QuerySingle<Issue461_ParameterlessTypeConstructor>( "SELECT * FROM #Issue461" );
             Assert.Equal( 1, parameterlessWorks.Id );
             Assert.Equal( "what up?", parameterlessWorks.SomeValue );
-            Assert.Equal( parameterlessWorks.SomeBlargValue.Value, Expected );
+            Assert.Equal( Expected , parameterlessWorks.SomeBlargValue.Value);
 
             // test: via constructor
             var parameterDoesNot = controller.QuerySingle<Issue461_ParameterisedTypeConstructor>( "SELECT * FROM #Issue461" );
             Assert.Equal( 1, parameterDoesNot.Id );
             Assert.Equal( "what up?", parameterDoesNot.SomeValue );
-            Assert.Equal( parameterDoesNot.SomeBlargValue.Value, Expected );
+            Assert.Equal( Expected , parameterDoesNot.SomeBlargValue.Value);
         }
 
         // I would usually expect this to be a struct; using a class
@@ -694,9 +694,9 @@ namespace CK.SqlServer.Dapper.Tests
         // to see an InvalidCastException if it is wrong
         private class Blarg
         {
-            public Blarg( string value ) { Value = value; }
-            public string Value { get; }
-            public override string ToString()
+            public Blarg( string? value ) { Value = value; }
+            public string? Value { get; }
+            public override string? ToString()
             {
                 return Value;
             }
@@ -704,14 +704,14 @@ namespace CK.SqlServer.Dapper.Tests
 
         private class Issue461_BlargHandler : SqlMapper.TypeHandler<Blarg>
         {
-            public override void SetValue( IDbDataParameter parameter, Blarg value )
+            public override void SetValue( IDbDataParameter parameter, Blarg? value )
             {
-                parameter.Value = ((object)value.Value) ?? DBNull.Value;
+                parameter.Value = ((object?)value?.Value) ?? DBNull.Value;
             }
 
             public override Blarg Parse( object value )
             {
-                string s = (value == null || value is DBNull) ? null : Convert.ToString( value );
+                string? s = (value == null || value is DBNull) ? null : Convert.ToString( value );
                 return new Blarg( s );
             }
         }
@@ -720,8 +720,8 @@ namespace CK.SqlServer.Dapper.Tests
         {
             public int Id { get; set; }
 
-            public string SomeValue { get; set; }
-            public Blarg SomeBlargValue { get; set; }
+            public string? SomeValue { get; set; }
+            public Blarg? SomeBlargValue { get; set; }
         }
 
         private class Issue461_ParameterisedTypeConstructor
