@@ -1,8 +1,7 @@
-namespace CK.SqlServer.Dapper.Tests
+namespace CK.SqlServer.Dapper.Tests;
+
+public class Comment
 {
-    public class Comment
-    {
-        public int Id { get; set; }
-        public string CommentData { get; set; }
-    }
+    public int Id { get; set; }
+    public string CommentData { get; set; }
 }

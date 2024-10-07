@@ -1,14 +1,13 @@
-namespace CK.SqlServer.Dapper.Tests
-{
-    internal enum AnEnum
-    {
-        A = 2,
-        B = 1
-    }
+namespace CK.SqlServer.Dapper.Tests;
 
-    internal enum AnotherEnum : byte
-    {
-        A = 2,
-        B = 1
-    }
+internal enum AnEnum
+{
+    A = 2,
+    B = 1
+}
+
+internal enum AnotherEnum : byte
+{
+    A = 2,
+    B = 1
 }
