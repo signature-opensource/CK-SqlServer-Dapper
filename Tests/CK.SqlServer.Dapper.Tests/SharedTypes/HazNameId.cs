@@ -1,8 +1,7 @@
-namespace CK.SqlServer.Dapper.Tests
+namespace CK.SqlServer.Dapper.Tests;
+
+public class HazNameId
 {
-    public class HazNameId
-    {
-        public string Name { get; set; }
-        public int Id { get; set; }
-    }
+    public string Name { get; set; }
+    public int Id { get; set; }
 }

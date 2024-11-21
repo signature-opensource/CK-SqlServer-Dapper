@@ -3,74 +3,73 @@ using System.Data.SqlClient;
 using Xunit;
 using Dapper;
 
-namespace CK.SqlServer.Dapper.Tests
+namespace CK.SqlServer.Dapper.Tests;
+
+[AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
+public sealed class FactLongRunningAttribute : FactAttribute
 {
-    [AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
-    public sealed class FactLongRunningAttribute : FactAttribute
+    public FactLongRunningAttribute()
     {
-        public FactLongRunningAttribute()
-        {
 #if !LONG_RUNNING
-            Skip = "Long running";
+        Skip = "Long running";
 #endif
-        }
-
-        public string Url { get; private set; }
     }
 
-    [AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
-    public class FactRequiredCompatibilityLevelAttribute : FactAttribute
-    {
-        public FactRequiredCompatibilityLevelAttribute( int level ) : base()
-        {
-            if( DetectedLevel < level )
-            {
-                Skip = $"Compatibility level {level} required; detected {DetectedLevel}";
-            }
-        }
+    public string Url { get; private set; }
+}
 
-        public const int SqlServer2016 = 130;
-        public static readonly int DetectedLevel;
-        static FactRequiredCompatibilityLevelAttribute()
+[AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
+public class FactRequiredCompatibilityLevelAttribute : FactAttribute
+{
+    public FactRequiredCompatibilityLevelAttribute( int level ) : base()
+    {
+        if( DetectedLevel < level )
         {
-            using( var conn = TestBase.GetOpenConnection() )
-            {
-                try
-                {
-                    DetectedLevel = conn.QuerySingle<int>( "SELECT compatibility_level FROM sys.databases where name = DB_NAME()" );
-                }
-                catch { /* don't care */ }
-            }
+            Skip = $"Compatibility level {level} required; detected {DetectedLevel}";
         }
     }
 
-    [AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
-    public class FactUnlessCaseSensitiveDatabaseAttribute : FactAttribute
+    public const int SqlServer2016 = 130;
+    public static readonly int DetectedLevel;
+    static FactRequiredCompatibilityLevelAttribute()
     {
-        public FactUnlessCaseSensitiveDatabaseAttribute() : base()
+        using( var conn = TestBase.GetOpenConnection() )
         {
-            if( IsCaseSensitive )
+            try
             {
-                Skip = "Case sensitive database";
+                DetectedLevel = conn.QuerySingle<int>( "SELECT compatibility_level FROM sys.databases where name = DB_NAME()" );
             }
+            catch { /* don't care */ }
         }
+    }
+}
 
-        public static readonly bool IsCaseSensitive;
-        static FactUnlessCaseSensitiveDatabaseAttribute()
+[AttributeUsage( AttributeTargets.Method, AllowMultiple = false )]
+public class FactUnlessCaseSensitiveDatabaseAttribute : FactAttribute
+{
+    public FactUnlessCaseSensitiveDatabaseAttribute() : base()
+    {
+        if( IsCaseSensitive )
         {
-            using( var conn = TestBase.GetOpenConnection() )
+            Skip = "Case sensitive database";
+        }
+    }
+
+    public static readonly bool IsCaseSensitive;
+    static FactUnlessCaseSensitiveDatabaseAttribute()
+    {
+        using( var conn = TestBase.GetOpenConnection() )
+        {
+            try
             {
-                try
-                {
-                    conn.Execute( "declare @i int; set @I = 1;" );
-                }
-                catch( Microsoft.Data.SqlClient.SqlException s )
-                {
-                    if( s.Number == 137 )
-                        IsCaseSensitive = true;
-                    else
-                        throw;
-                }
+                conn.Execute( "declare @i int; set @I = 1;" );
+            }
+            catch( Microsoft.Data.SqlClient.SqlException s )
+            {
+                if( s.Number == 137 )
+                    IsCaseSensitive = true;
+                else
+                    throw;
             }
         }
     }

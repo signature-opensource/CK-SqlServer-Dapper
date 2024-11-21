@@ -1,14 +1,13 @@
 using System;
 
-namespace CK.SqlServer.Dapper.Tests
-{
-    public class Dog
-    {
-        public int? Age { get; set; }
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public float? Weight { get; set; }
+namespace CK.SqlServer.Dapper.Tests;
 
-        public int IgnoredProperty => 1;
-    }
+public class Dog
+{
+    public int? Age { get; set; }
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public float? Weight { get; set; }
+
+    public int IgnoredProperty => 1;
 }

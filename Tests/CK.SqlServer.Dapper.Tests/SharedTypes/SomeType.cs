@@ -1,8 +1,7 @@
-namespace CK.SqlServer.Dapper.Tests
+namespace CK.SqlServer.Dapper.Tests;
+
+public class SomeType
 {
-    public class SomeType
-    {
-        public int A { get; set; }
-        public string B { get; set; }
-    }
+    public int A { get; set; }
+    public string B { get; set; }
 }
