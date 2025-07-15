@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CK.SqlServer.Transaction" Version="10.0.1--0001-develop" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="10.0.1--0002-develop" />
     <ProjectReference Include="..\..\CK.SqlServer.Dapper\CK.SqlServer.Dapper.csproj" />
   </ItemGroup>
 </Project>
