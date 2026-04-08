@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="appveyor.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="NuGet.config" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/CK.SqlServer.Dapper.Tests/CK.SqlServer.Dapper.Tests.csproj" />
+  </Folder>
+  <Project Path="CK.SqlServer.Dapper/CK.SqlServer.Dapper.csproj" />
+</Solution>
