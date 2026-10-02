@@ -6,7 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using Xunit;
-using static CK.Testing.SqlServerTestHelper;
+using CK.Testing;
+using static CK.Testing.MonitorTestHelper;
 
 namespace CK.SqlServer.Dapper.Tests;
 

@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using Dapper;
-using static CK.Testing.SqlServerTestHelper;
+using CK.Testing;
+using static CK.Testing.MonitorTestHelper;
 
 namespace CK.SqlServer.Dapper.Tests;
 
