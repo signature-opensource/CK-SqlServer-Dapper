@@ -59,7 +59,7 @@ public abstract class TestBase : IDisposable
     static TestBase()
     {
         Console.WriteLine( "Dapper: " + typeof( SqlMapper ).AssemblyQualifiedName );
-        Console.WriteLine( "Using Connectionstring: {0}", ConnectionString );
+        Console.WriteLine( "Using Connectionstring: {0}", CK.SqlServer.SqlHelper.RemoveSensitiveInformations( ConnectionString ) );
         Console.WriteLine( ".NET: " + Environment.Version );
         TestHelper.OnlyOnce( () =>
         {
