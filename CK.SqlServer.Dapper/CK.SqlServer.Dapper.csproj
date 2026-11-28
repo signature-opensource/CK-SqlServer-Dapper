@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.StObj.Model" Version="37.0.0-0.uc.4.ci.85" />
+    <PackageReference Include="CK.StObj.Model" Version="37.0.0-0.uc.4.ci.89" />
     <PackageReference Include="CK.SqlServer" Version="15.0.0-0.uc.4.ci.39" />
     <PackageReference Include="CK.Dapper" Version="2.1.5" />
   </ItemGroup>
